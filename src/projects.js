@@ -41,7 +41,7 @@ function createProj( todo) {
         listProj.push(defProj.getProject());
     }
 
-    const addNewProj = function (name ) {
+    const addNewProj = function (name) {
 
         const createProj = new Project(name);
         createProj.addNotes(todo);
@@ -49,18 +49,28 @@ function createProj( todo) {
         listProj.push(createProj.getProject());
     }
 
+    const removeProject = function(name){
+        listProj.forEach((proj,index) => {
+            if(proj.name == name){
+                listProj.splice(index,1);
+            }
+        })
+    }
+
     const getProj = function () {
         return (listProj);
     }
 
-    return { addNewProj, addDefaultProj, getProj};
+    return { addNewProj, addDefaultProj, getProj , removeProject};
 }
 
 const proj = new createProj(new Todo("Todo1", "this is a demo", "2025-11-23"));
 proj.addDefaultProj();
-proj.addNewProj("New Proj")
-console.log(proj.getProj());
+proj.addNewProj("New Proj");
+proj.addNewProj("Project2");
+proj.removeProject("Project2");
 
+console.log(proj.getProj());
 
 
 
