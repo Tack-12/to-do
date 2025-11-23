@@ -1,20 +1,22 @@
 import { formatDistanceToNowStrict, isPast } from "date-fns";
 
-export class Todo {
-    constructor(title, note, due) {
-        this.title = title;
-        this.note = note;
-        this.due = getDue(due);
-        this.priority = getPriority(due);
-    }
+export const Todo = function (title,note, due) {
 
-    getTodo(){
-        return { title : this.title,
-            note: this.note,
-            due: this.due,
-            priority: this.priority
+    const notedue = getDue(due);
+    const priority = getPriority(due);
+
+
+    const getTodo = function () {
+        return {
+            title: title,
+            note: note,
+            due: notedue,
+            priority: priority
         }
     }
+
+    return {getTodo}
+
 }
 
 
@@ -27,31 +29,31 @@ function getDue(due) {
         });
         return due_date;
     }
-    else{
+    else {
         return "Past Due"
     }
 }
 
-function getPriority(due){
+function getPriority(due) {
     let days = getDue(due);
     let daysleft;
-    if( days != "Past Due"){
+    if (days != "Past Due") {
         days = days.split(" ");
         daysleft = days[1];
-    }else{
+    } else {
         return "RED"
     }
 
-    if (daysleft <=2){
+    if (daysleft <= 2) {
         return "RED"
     }
-    else if(daysleft >2 && daysleft <=4){
+    else if (daysleft > 2 && daysleft <= 4) {
         return "YELLOW"
     }
-    else{
+    else {
         return "GREEN"
     }
-    
+
 }
 
 

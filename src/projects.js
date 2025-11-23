@@ -1,77 +1,82 @@
-import { endOfDay } from "date-fns";
-import { Todo } from "./todo.js";
+import { Todo } from "./todo.js"
 
+const project = function () {
+    const projects = [{
+        name: "DEFAULT",
+        todo: [Todo("DEMO Todo1", "This is a demo for RED", "2025-11-18"),
+        Todo("DEMO Todo1", "This is a demo for Yellow", "2025-11-25"),
+        Todo("DEMO Todo1", "This is a demo for RED", "2025-12-18")
+        ],
+    }]
 
+    //Adds Todo to the list if existing Project // Else creates a new Project 
+    const Add = (function (todoname, des, due) {
 
-function Project(newname) {
+        const createNewProj = function (name) {
+            projects.push({
+                name: name,
+                todo: [],
+            })
+        }
 
-    const name = newname;
-    const dateCreated = endOfDay((new Date()), 'yyyy-MM-dd')
-    const listNotes = [];
+        const addtoNew = function (name) {
+            projects.forEach((proj) => {
+                if (proj.name == name) {
+                    proj.todo.push(Todo(todoname, des, due));
+                }
+            })
+        }
 
-    const addNotes = function (todo) {
-        listNotes.push(todo);
-    }
+        return { createNewProj, addtoNew };
+    });
 
-    const removeNotes = function (notetitle) {
-        listNotes.forEach((notes, index) => {
-            if (notes.title == notetitle) {
-                listNotes.splice(index, 1);
+    //Remove Todo from the list of exisiting Project..
+    const Remove = function (name) {
+        projects.forEach((project, index) => {
+            if (project.name == name) {
+                projects.splice(index, 1);
             }
         })
     }
+
+
+    const createProject = function (projName = "DEFAULT", todoname, des, due) {
+
+        if (projName == "DEFAULT") {
+            let default_project = Add(todoname, des, due);
+            default_project.addtoNew(projName);
+        }
+        else {
+            let exist;
+            let new_project = Add(todoname, des, due);
+
+            exist = projects.find((proj) => (proj.name == projName))
+
+            if (exist) {
+                new_project.addtoNew(projName);
+            }
+            else {
+                new_project.createNewProj(projName);
+                new_project.addtoNew(projName)
+            }
+        }
+    }
+
 
     const getProject = function () {
-        return { name, listNotes, dateCreated };
+        return projects
     }
 
-    return { addNotes, removeNotes, getProject }
-};
 
 
-function createProj( todo) {
-    const listProj = [];
-
-    const addDefaultProj = function () {
-        const defProj = new Project("Default Project");
-        defProj.addNotes(new Todo("Todo1", "this is a demo", "2025-11-23"));
-        defProj.addNotes(new Todo("Todo1", "this is a demo", "2025-11-23"));
-        defProj.addNotes(todo);
-
-        listProj.push(defProj.getProject());
-    }
-
-    const addNewProj = function (name) {
-
-        const createProj = new Project(name);
-        createProj.addNotes(todo);
-
-        listProj.push(createProj.getProject());
-    }
-
-    const removeProject = function(name){
-        listProj.forEach((proj,index) => {
-            if(proj.name == name){
-                listProj.splice(index,1);
-            }
-        })
-    }
-
-    const getProj = function () {
-        return (listProj);
-    }
-
-    return { addNewProj, addDefaultProj, getProj , removeProject};
+    return { createProject, getProject , Remove }
 }
 
-const proj = new createProj(new Todo("Todo1", "this is a demo", "2025-11-23"));
-proj.addDefaultProj();
-proj.addNewProj("New Proj");
-proj.addNewProj("Project2");
-proj.removeProject("Project2");
+let newProject = project();
+newProject.createProject("NewProject", "todo1", "this is todo1", "2025-12-11");
+newProject.createProject("NewProject", "todo2", "this is todo2", "2025-12-15");
+newProject.createProject("NewPRoj2", "todo1", "this is todo1", "2025-12-11");
 
-console.log(proj.getProj());
+newProject.Remove("NewProject");
 
-
-
-
+console.log(newProject.getProject());
