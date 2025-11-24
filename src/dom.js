@@ -1,34 +1,34 @@
-import { createProj } from "./projects.js";
+import { project } from "./projects.js";
 
 
-(function display (){
-    const addProj = document.querySelector("#projectadd"); 
+const displayProject = (function () {
 
-   function addProjDisplay (){
-     addProj.addEventListener("click", addProject)
-   } 
+    addProjectDisplay();
 
-   addProjDisplay();
-})()
+})();
+
+function addProjectDisplay() {
+
+    const listProject = document.querySelector(".left");
+    const addProject = document.querySelector("#projectadd");
+
+    addProject.addEventListener("click", addProjectToList);
+}
 
 
-function addProject(){
-    const dialog = document.querySelector("dialog");
-    dialog.showModal();
-    const doneButton = document.querySelector("dialog>button");
-    
-    doneButton.addEventListener(("click"), (e)=>{
+
+function addProjectToList() {
+    const newProject = project();
+    const createproj = document.querySelector("#Project");
+    createproj.showModal();
+    const closeProjectmodal = document.querySelector("#Project>button");
+    const projectName = document.querySelector("#name").innerHTML;
+
+
+    closeProjectmodal.addEventListener("click", (e) => {
         e.preventDefault();
-        const name = document.querySelector("#name").value;
-
-        if (name != ""){
-            createProj(name);
-            let projdiv = document.createElement("div");          
-            document.querySelector(".left").appendChild(projdiv);
-            projdiv.textContent = name;
-        }
-        else{
-            
-        }
+        newProject.createNewProj(projectName);
+        createproj.close();
+        console.log(newProject.getProject());
     })
 }
