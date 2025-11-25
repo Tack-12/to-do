@@ -24,10 +24,28 @@
                 <label for="name"> Name </label>
                 <input type="text" placeholder="Name" id="name" required>
 
-                <button>DONE</button>
+                <button id="closeProj">DONE</button>
             </form>
         </dialog>
         
+           <dialog id="TodoCreator">
+            <form action="" method="">
+                <label for="TodoName">Name</label>
+                <input type="text" placeholder="Todo Name" id="todo-name" required>
+
+                <label for="description">description</label>
+                <input type="text" id="todo-description">
+
+                <label for="due">Due Date</label>
+                <input type="date" min="2025-11-24">
+
+                <label for="projects">Choose Project:</label>
+                <select name="projectslist" id="list-projects">
+                </select>
+
+                <button id="closeTodo">DONE</button>
+            </form>
+        </dialog>
     </div>
 </body>
 </html>
