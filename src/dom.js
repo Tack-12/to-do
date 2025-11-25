@@ -8,6 +8,7 @@ const display = (function () {
 
     function addProjectDisplay() {
         showProject();
+        showNotes();
         const addProject = document.querySelector("#projectadd");
         const addTodo = document.querySelector(".addNotes");
 
@@ -16,7 +17,6 @@ const display = (function () {
 
         addTodo.addEventListener("click", addTodoToProject);
         addProject.addEventListener("click", addProjectToList);
-
     }
 
     function addProjectToList() {
@@ -90,30 +90,40 @@ const display = (function () {
             projectname.innerHTML = project.name;
             left.appendChild(projectname);
         })
-
     }
 
-    function showNotes(){
-        const right= document.querySelector(".right");
-        const listofProjects = document.querySelector(".left");
-        right.innerHTML="";
+    
+    function showNotes() {
+        const listofProjects = document.querySelectorAll(".left > li");
 
-        list.forEach((proj)=>{
-            proj.todo.forEach((todos)=>{
-                let li = document.createElement("li");
-                let todoname = document.createElement("h3");
-                let note = document.createElement("p");
-                let due = document.createElement("p");
-                todoname.innerHTML = todos.title;
-                note.innerHTML = todos.note;
-                due.innerHTML = todos.due;
-                right.appendChild(li);
-                li.appendChild(todoname);
-                li.appendChild(note);
-                li.appendChild(due);
-            })
+        listofProjects.forEach((listOptions) => {
+            let value = listOptions.innerHTML;
+            listOptions.addEventListener("click", ()=>{ifPressed(value)})
         })
+    }
+
+    function ifPressed(value) {
         
+        const right = document.querySelector(".right");
+        right.innerHTML = "";
+
+        list.forEach((proj) => {
+            if (proj.name == value) {
+                proj.todo.forEach((todos) => {
+                    let li = document.createElement("li");
+                    let todoname = document.createElement("h3");
+                    let note = document.createElement("p");
+                    let due = document.createElement("p");
+                    todoname.innerHTML = todos.title;
+                    note.innerHTML = todos.note;
+                    due.innerHTML = todos.due;
+                    right.appendChild(li);
+                    li.appendChild(todoname);
+                    li.appendChild(note);
+                    li.appendChild(due);
+                })
+            }
+        })
     }
 
     return { addProjectDisplay }

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="todo">
         <h1>TODO</h1>
         <div class="main">
-            <div >
+            <div>
                 <h2>Project</h2>
                 <ul class="left"></ul>
                 <button id="projectadd">Add a Project</button>
+
+                <button class="addNotes"> Add a Note </button>
             </div>
-            <div >
+            <div>
                 <h2>Notes</h2>
                 <ul class="right"></ul>
-                <button class="addNotes"> Add a Note </button>
-                
+
             </div>
         </div>
 
@@ -30,8 +33,8 @@
                 <button id="closeProj">DONE</button>
             </form>
         </dialog>
-        
-           <dialog id="TodoCreator">
+
+        <dialog id="TodoCreator">
             <form action="" method="">
                 <label for="TodoName">Name</label>
                 <input type="text" placeholder="Todo Name" id="todo-name" required>
@@ -51,4 +54,5 @@
         </dialog>
     </div>
 </body>
+
 </html>
