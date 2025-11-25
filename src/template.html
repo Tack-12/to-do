@@ -9,13 +9,16 @@
     <div class="todo">
         <h1>TODO</h1>
         <div class="main">
-            <div class="left">
+            <div >
                 <h2>Project</h2>
+                <ul class="left"></ul>
                 <button id="projectadd">Add a Project</button>
             </div>
-            <div class="right">
+            <div >
                 <h2>Notes</h2>
+                <ul class="right"></ul>
                 <button class="addNotes"> Add a Note </button>
+                
             </div>
         </div>
 
@@ -37,7 +40,7 @@
                 <input type="text" id="todo-description">
 
                 <label for="due">Due Date</label>
-                <input type="date" min="2025-11-24">
+                <input type="date" min="2025-11-24" id="date">
 
                 <label for="projects">Choose Project:</label>
                 <select name="projectslist" id="list-projects">

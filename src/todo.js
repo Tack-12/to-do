@@ -1,21 +1,17 @@
 import { formatDistanceToNowStrict, isPast } from "date-fns";
 
-export const Todo = function (title,note, due) {
+export const Todo = function (title, note, due) {
 
     const notedue = getDue(due);
     const priority = getPriority(due);
 
-
-    const getTodo = function () {
-        return {
-            title: title,
-            note: note,
-            due: notedue,
-            priority: priority
-        }
+    return {
+        title: title,
+        note: note,
+        due: notedue,
+        priority: priority
     }
 
-    return {getTodo}
 
 }
 
