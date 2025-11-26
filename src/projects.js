@@ -65,7 +65,7 @@ export const project = function () {
             if (proj.name == projName) {
                 let Todo = proj.todo;
                 Todo.forEach((todos, index) => {
-                    if (todos.getTodo().title == title) {
+                    if (todos.title == title) {
                         proj.todo.splice(index, 1);
                     }
                 })

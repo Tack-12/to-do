@@ -4,8 +4,6 @@ const display = (function () {
 
     const newProject = project();
 
-    let list = newProject.getProject();
-
     function addProjectDisplay() {
         showProject();
         showNotes();
@@ -17,6 +15,13 @@ const display = (function () {
 
         addTodo.addEventListener("click", addTodoToProject);
         addProject.addEventListener("click", addProjectToList);
+
+        // addTodo.removeEventListener("click",showNotes);
+        // addTodo.addEventListener("click", showNotes);
+
+        // addProject.removeEventListener("click", showProject);
+        // addProject.addEventListener("click", showProject);
+
     }
 
     function addProjectToList() {
@@ -63,7 +68,7 @@ const display = (function () {
         let currentChoice = projectList.value;
         console.log(currentChoice, todoName.value, todoDescription.value, duedate.value);
 
-        if (currentChoice != 0 & todoName.value != 0) {
+        if (currentChoice != "" & todoName.value != "") {
             newProject.addToProject(currentChoice, todoName.value, todoDescription.value, duedate.value);
             showNotes();
         }
@@ -74,7 +79,7 @@ const display = (function () {
         let projList = document.querySelector("#list-projects");
         projList.innerHTML = "";
 
-        list.forEach((project) => {
+        newProject.getProject().forEach((project) => {
             let options = document.createElement("option");
             options.value = project.name;
             options.innerHTML = project.name;
@@ -85,51 +90,100 @@ const display = (function () {
     function showProject() {
         const left = document.querySelector(".left");
         left.innerHTML = "";
-        list.forEach((project) => {
-            let projectname = document.createElement("li");
+        newProject.getProject().forEach((project) => {
+            let li = document.createElement("li")
+            let projectname = document.createElement("div");
+            let closebutton = document.createElement("button");
+            closebutton.id = "removeProject";
             projectname.innerHTML = project.name;
-            left.appendChild(projectname);
+            closebutton.innerHTML = "X";
+            left.appendChild(li);
+            li.appendChild(projectname);
+            li.appendChild(closebutton);
         })
+        removeProject();
     }
 
-    
+
     function showNotes() {
-        const listofProjects = document.querySelectorAll(".left > li");
+        const listofProjects = document.querySelectorAll(".left  div");
 
         listofProjects.forEach((listOptions) => {
             let value = listOptions.innerHTML;
-            listOptions.addEventListener("click", ()=>{ifPressed(value)})
+            listOptions.addEventListener("click", () => { ifPressed(value) })
         })
     }
 
     function ifPressed(value) {
-        
+
         const right = document.querySelector(".right");
         right.innerHTML = "";
 
-        list.forEach((proj) => {
+        newProject.getProject().forEach((proj) => {
             if (proj.name == value) {
                 proj.todo.forEach((todos) => {
                     let li = document.createElement("li");
+                    let leftcontainer = document.createElement("div");
+                    let close = document.createElement("button");
+                    close.innerHTML = "X";
+                    close.id = "removeNote";
                     let todoname = document.createElement("h3");
                     let note = document.createElement("p");
                     let due = document.createElement("p");
                     todoname.innerHTML = todos.title;
+                    todoname.id = proj.name;
                     note.innerHTML = todos.note;
                     due.innerHTML = todos.due;
                     right.appendChild(li);
-                    li.appendChild(todoname);
-                    li.appendChild(note);
-                    li.appendChild(due);
+                    li.appendChild(leftcontainer);
+                    li.appendChild(close);
+                    leftcontainer.appendChild(todoname);
+                    leftcontainer.appendChild(note);
+                    leftcontainer.appendChild(due);
                 })
             }
         })
+        removeNotes();
     }
 
     return { addProjectDisplay }
+
+
+    function removeNotes() {
+        const removebuttons = document.querySelectorAll('#removeNote');
+
+        removebuttons.forEach((btn) => {
+            btn.addEventListener("click", removingNotes)
+        })
+    }
+
+    function removingNotes(e) {
+        e.preventDefault();
+        let todo = e.target.previousSibling;
+        let todo_name = todo.firstElementChild.innerHTML
+        let project_name = todo.firstElementChild.id;
+        console.log(todo_name, project_name);
+        newProject.deleteTodo(project_name, todo_name);
+        showNotes();
+    }
+
+    function removeProject() {
+        const removebuttons = document.querySelectorAll('#removeProject');
+
+        removebuttons.forEach((btn) => {
+            btn.addEventListener("click", removingProjects)
+        })
+    }
+
+    function removingProjects(e) {
+        e.preventDefault();
+        let project = e.target.previousSibling;
+        let project_name = project.innerHTML;
+
+        newProject.removeProject(project_name);
+        showProject();
+    }
 })();
-
-
 const displayProject = (function () {
 
     display.addProjectDisplay();
