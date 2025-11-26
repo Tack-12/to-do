@@ -18,15 +18,20 @@ export const Todo = function (title, note, due) {
 
 function getDue(due) {
 
-    if (!isPast(new Date(due))) {
-        const due_date = formatDistanceToNowStrict(new Date(due), {
-            unit: 'day',
-            addSuffix: true
-        });
-        return due_date;
+    if (due.includes("-")) {
+        if (!isPast(new Date(due))) {
+            const due_date = formatDistanceToNowStrict(new Date(due), {
+                unit: 'day',
+                addSuffix: true
+            });
+            return due_date;
+        }
+        else {
+            return "Past Due"
+        }
     }
     else {
-        return "Past Due"
+        return due
     }
 }
 

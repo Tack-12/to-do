@@ -1,3 +1,4 @@
+import { da } from "date-fns/locale";
 import { project } from "./projects.js";
 import "./style.css";
 
@@ -6,6 +7,7 @@ const display = (function () {
     const newProject = project();
 
     function addProjectDisplay() {
+        loadFromLocalStorage();
         showProject();
         showNotes();
         const addProject = document.querySelector("#projectadd");
@@ -33,14 +35,13 @@ const display = (function () {
     function addproject(e) {
         const createproj = document.querySelector("#Project");
         let projectName = document.querySelector("#name");
-        console.log(projectName.value);
         e.preventDefault();
         if (projectName.value != "") {
             newProject.createNewProj(projectName.value);
+            localStoragefunction();
         }
         showProject();
         createproj.close();
-        console.log(newProject.getProject());
     }
 
 
@@ -64,12 +65,12 @@ const display = (function () {
         let duedate = document.querySelector("#date");
         let projectList = document.querySelector("#list-projects");
         let currentChoice = projectList.value;
-        console.log(currentChoice, todoName.value, todoDescription.value, duedate.value);
 
         if (currentChoice != "" & todoName.value != "") {
             newProject.addToProject(currentChoice, todoName.value, todoDescription.value, duedate.value);
-            showNotes();
+            localStoragefunction();
         }
+        showNotes();
         createTodo.close();
     }
 
@@ -161,8 +162,8 @@ const display = (function () {
         let todo = e.target.previousSibling;
         let todo_name = todo.firstElementChild.innerHTML
         let project_name = todo.firstElementChild.id;
-        console.log(todo_name, project_name);
         newProject.deleteTodo(project_name, todo_name);
+        localStoragefunction();
         showNotes();
     }
 
@@ -170,7 +171,7 @@ const display = (function () {
         const removebuttons = document.querySelectorAll('#removeProject');
 
         removebuttons.forEach((btn) => {
-            btn.addEventListener("click", removingProjects)
+            btn.addEventListener("click", removingProjects);
         })
     }
 
@@ -180,8 +181,37 @@ const display = (function () {
         let project_name = project.innerHTML;
 
         newProject.removeProject(project_name);
+        localStoragefunction();
         showProject();
     }
+
+    function localStoragefunction() {
+        localStorage.clear();
+        localStorage.setItem("Project", JSON.stringify(newProject.getProject()));
+
+    }
+
+    function loadFromLocalStorage() {
+        let data;
+        const loadItem = localStorage.getItem("Project");
+        data = JSON.parse(loadItem);
+        if (data != null) {
+            data.forEach((project) => {
+                if (project.name != "DEFAULT") {
+                    newProject.createNewProj(project.name);
+                }
+                project.todo.forEach((todos) => {
+                    let firstword = todos.title.split(" ");
+                    if (firstword[0] != "DEMO") {
+                        newProject.addToProject(project.name, todos.title, todos.note, todos.due);
+                    }
+                })
+            })
+        }
+
+    }
+
+
 })();
 const displayProject = (function () {
 
