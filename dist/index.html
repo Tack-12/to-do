@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div class="todo">
+        <h1>TODO</h1>
+        <div class="main">
+            <div class="left">
+                <h2>Project</h2>
+                <button id="projectadd">Add a Project</button>
+            </div>
+            <div class="right">
+                <h2>Notes</h2>
+                <button class="addNotes"> Add a Note </button>
+            </div>
+        </div>
+
+        <dialog id="Project">
+            <form action="" method="get">
+                <label for="name"> Name </label>
+                <input type="text" placeholder="Name" id="name" required>
+
+                <button>DONE</button>
+            </form>
+        </dialog>
+        
+           <dialog id="TodoCreator">
+            <form action="" method="">
+                <label for="TodoName">Name</label>
+                <input type="text" placeholder="Todo Name" id="todo-name" required>
+
+                <label for="description">description</label>
+                <input type="text" id="todo-description">
+
+                <label for="due">Due Date</label>
+                <input type="date" min="2025-11-24">
+
+                <label for="projects">Choose Project:</label>
+                <select name="projectslist" id="list-projects">
+                </select>
+
+                <button>DONE</button>
+            </form>
+        </dialog>
+    </div>
+</body>
+</html>

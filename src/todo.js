@@ -1,21 +1,17 @@
 import { formatDistanceToNowStrict, isPast } from "date-fns";
 
-export const Todo = function (title,note, due) {
+export const Todo = function (title, note, due) {
 
     const notedue = getDue(due);
     const priority = getPriority(due);
 
-
-    const getTodo = function () {
-        return {
-            title: title,
-            note: note,
-            due: notedue,
-            priority: priority
-        }
+    return {
+        title: title,
+        note: note,
+        due: notedue,
+        priority: priority
     }
 
-    return {getTodo}
 
 }
 
@@ -41,17 +37,17 @@ function getPriority(due) {
         days = days.split(" ");
         daysleft = days[1];
     } else {
-        return "RED"
+        return "red"
     }
 
     if (daysleft <= 2) {
-        return "RED"
+        return "red"
     }
     else if (daysleft > 2 && daysleft <= 4) {
-        return "YELLOW"
+        return "yellow"
     }
     else {
-        return "GREEN"
+        return "green"
     }
 
 }
