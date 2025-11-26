@@ -1,4 +1,5 @@
 import { project } from "./projects.js";
+import "./style.css";
 
 const display = (function () {
 
@@ -16,11 +17,6 @@ const display = (function () {
         addTodo.addEventListener("click", addTodoToProject);
         addProject.addEventListener("click", addProjectToList);
 
-        // addTodo.removeEventListener("click",showNotes);
-        // addTodo.addEventListener("click", showNotes);
-
-        // addProject.removeEventListener("click", showProject);
-        // addProject.addEventListener("click", showProject);
 
     }
 
@@ -39,7 +35,9 @@ const display = (function () {
         let projectName = document.querySelector("#name");
         console.log(projectName.value);
         e.preventDefault();
-        newProject.createNewProj(projectName.value);
+        if (projectName.value != "") {
+            newProject.createNewProj(projectName.value);
+        }
         showProject();
         createproj.close();
         console.log(newProject.getProject());
@@ -134,6 +132,7 @@ const display = (function () {
                     todoname.id = proj.name;
                     note.innerHTML = todos.note;
                     due.innerHTML = todos.due;
+                    li.style.borderColor = todos.priority;
                     right.appendChild(li);
                     li.appendChild(leftcontainer);
                     li.appendChild(close);

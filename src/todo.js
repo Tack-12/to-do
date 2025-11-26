@@ -37,17 +37,17 @@ function getPriority(due) {
         days = days.split(" ");
         daysleft = days[1];
     } else {
-        return "RED"
+        return "red"
     }
 
     if (daysleft <= 2) {
-        return "RED"
+        return "red"
     }
     else if (daysleft > 2 && daysleft <= 4) {
-        return "YELLOW"
+        return "yellow"
     }
     else {
-        return "GREEN"
+        return "green"
     }
 
 }

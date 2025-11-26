@@ -4,7 +4,7 @@ export const project = function () {
     const projects = [{
         name: "DEFAULT",
         todo: [Todo("DEMO Todo1", "This is a demo for RED", "2025-11-18"),
-        Todo("DEMO Todo1", "This is a demo for Yellow", "2025-11-25"),
+        Todo("DEMO Todo1", "This is a demo for Yellow", "2025-11-30"),
         Todo("DEMO Todo1", "This is a demo for RED", "2025-12-18")
         ],
     }]
