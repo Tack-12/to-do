@@ -1,56 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="todo">
-        <h1>TODO</h1>
+      <h1>TODO</h1>
 
-        <div class="leftmain">
-            <h2>Projects</h2>
-            <ul class="left"></ul>
-        </div>
-        <div class="rightmain">
-            <h2>Todos</h2>
-            <ul class="right"></ul>
-        </div>
+      <div class="leftmain">
+        <h2>Projects</h2>
+        <ul class="left"></ul>
+      </div>
+      <div class="rightmain">
+        <h2>Todos</h2>
+        <ul class="right"></ul>
+      </div>
 
-        <button id="projectadd">Add a Project</button>
-        <button class="addNotes"> Add a Todo </button>
+      <button id="projectadd">Add a Project</button>
+      <button class="addNotes">Add a Todo</button>
     </div>
     <dialog id="Project">
-        <form action="" method="get">
-            <label for="name"> Name </label>
-            <input type="text" placeholder="Name" id="name" required>
+      <form action="" method="get">
+        <label for="name"> Name </label>
+        <input type="text" placeholder="Name" id="name" required />
 
-            <button id="closeProj">DONE</button>
-        </form>
+        <button id="closeProj">DONE</button>
+      </form>
     </dialog>
 
     <dialog id="TodoCreator">
-        <form action="" method="">
-            <label for="TodoName">Name</label>
-            <input type="text" placeholder="Todo Name" id="todo-name" required>
+      <form action="" method="">
+        <label for="TodoName">Name</label>
+        <input type="text" placeholder="Todo Name" id="todo-name" required />
 
-            <label for="description">description</label>
-            <input type="text" id="todo-description">
+        <label for="description">description</label>
+        <input type="text" id="todo-description" />
 
-            <label for="due">Due Date</label>
-            <input type="date" min="2025-11-24" id="date">
+        <label for="due">Due Date</label>
+        <input type="date" min="2025-11-24" id="date" />
 
-            <label for="projects">Choose Project:</label>
-            <select name="projectslist" id="list-projects">
-            </select>
+        <label for="projects">Choose Project:</label>
+        <select name="projectslist" id="list-projects"></select>
 
-            <button id="closeTodo">DONE</button>
-        </form>
+        <button id="closeTodo">DONE</button>
+      </form>
     </dialog>
-
-</body>
-
+  </body>
 </html>
